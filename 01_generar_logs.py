@@ -34,7 +34,7 @@ def generar_logs_saas(num_registros=50000):
             }
             f.write(json.dumps(evento) + "\n")
 
-    print(f"✅ Generados {num_registros} eventos crudos en 'raw_events.json'")
+    print(f"Generados {num_registros} eventos crudos en 'raw_events.json'")
 
 
 if __name__ == "__main__":
