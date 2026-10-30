@@ -49,11 +49,11 @@ esquema_logs = StructType(
     ]
 )
 
-print("📥 Ingestando logs crudos...")
+print("Ingestando logs crudos...")
 df_raw = spark.read.json("raw_events.json", schema=esquema_logs)
 
 # 3. Transformación y Limpieza (Flatten & Data Quality)
-print("🧹 Aplanando JSONs y limpiando datos...")
+print("Aplanando JSONs y limpiando datos...")
 df_clean = (
     df_raw.filter(col("user.plan").isNotNull())
     .dropDuplicates(["event_id"])
@@ -72,10 +72,10 @@ df_clean = (
 )
 
 # 4. Almacenamiento Optimizado (Partition Pruning)
-print("💾 Escribiendo Data Lake en formato Parquet particionado...")
+print("Escribiendo Data Lake en formato Parquet particionado...")
 df_clean.write.mode("overwrite").partitionBy("fecha", "suscripcion").parquet(
     "datalake_eventos.parquet"
 )
 
-print("🚀 ¡Pipeline completado con éxito!")
+print("¡Pipeline completado!")
 spark.stop()
